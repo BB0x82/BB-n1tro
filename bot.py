@@ -67,7 +67,7 @@ async def on_ready():
 @commands.cooldown(bbgen_cooldown_rate, bbgen_cooldown_seconds, commands.BucketType.user)
 async def bbgen(ctx):
     link_prefix, token = await bot.loop.run_in_executor(None, nitro_gen)
-await ctx.send(f'Dit link er blevet sendt til dig!')
+    await ctx.send(f'Dit link er blevet sendt til dig!')
     await ctx.author.send(f"{link_prefix}[][][][][][]{token}\n**(HVIS LINKET IK VIRKER, FJERN [][][][][][])**\n\n**IMAGINE AT VÆRE SÅ HJÆLPELØS!**")
 
 # Event handler for command errors
