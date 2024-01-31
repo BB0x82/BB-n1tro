@@ -66,20 +66,24 @@ async def on_ready():
 @bot.command()
 @commands.cooldown(bbgen_cooldown_rate, bbgen_cooldown_seconds, commands.BucketType.user)
 async def bbgen(ctx):
-    link_prefix, token = await bot.loop.run_in_executor(None, nitro_gen)
-    await ctx.send(f'Dit link er blevet sendt til dig!')
-    await ctx.author.send(f"{link_prefix}[][][][][][]{token}\n**(HVIS LINKET IK VIRKER, FJERN [][][][][][])**\n\n**IMAGINE AT VÆRE SÅ HJÆLPELØS!**")
+    try:
+        link_prefix, token = await bot.loop.run_in_executor(None, nitro_gen)
+        await ctx.author.send(f"{link_prefix}[][][][][][]{token}\n**(HVIS LINKET IK VIRKER, FJERN [][][][][][])**\n\n**IMAGINE AT VÆRE SÅ HJÆLPELØS!**")
 
-# Event handler for command errors
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandOnCooldown):
+        # Send a message in the channel
+        msg = await ctx.send(f"{ctx.author.mention}, check your DMs for the link!")
+
+        # Delete both messages after 5 seconds
+        await asyncio.sleep(5)
+        await ctx.message.delete()
+        await msg.delete()
+
+    except commands.CommandOnCooldown as e:
         # Display time remaining in the cooldown
-        cooldown_retry_after = round(error.retry_after, 2)
+        cooldown_retry_after = round(e.retry_after, 2)
         await ctx.send(f'SLAP AF DIN GRIS. Vent {cooldown_retry_after} sekunder.')
-    else:
-        # Handle other errors
-        print(f"An error occurred: {error}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 
 @bot.command()
