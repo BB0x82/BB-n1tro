@@ -8,8 +8,11 @@ import string
 import os
 import sys
 
-# Create a bot instance
-bot = commands.Bot(command_prefix='/')
+intents = discord.Intents.default()
+intents.message_content = True  # Enable message content for on_message event
+
+# Create a bot instance with intents
+bot = commands.Bot(command_prefix='/', intents=intents)
 
 bbgen_cooldown_rate = 1  # Number of uses allowed per cooldown period
 bbgen_cooldown_seconds = 60  # Cooldown period in seconds
