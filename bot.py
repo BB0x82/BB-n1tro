@@ -71,7 +71,7 @@ async def bbgen(ctx):
         await ctx.author.send(f"{link_prefix}[][][][][][]{token}\n**(HVIS LINKET IK VIRKER, FJERN [][][][][][])**\n\n**IMAGINE AT VÆRE SÅ HJÆLPELØS!**")
 
         # Send a message in the channel
-        msg = await ctx.send(f"{ctx.author.mention}, check your DMs for the link!")
+        msg = await ctx.send(f"{ctx.author.mention}, Dit link er blevet sendt til dig!")
 
         # Delete both messages after 5 seconds
         await asyncio.sleep(5)
