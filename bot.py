@@ -62,6 +62,7 @@ def nitro_gen():
 
 @bot.event
 async def on_ready():
+    await bot.change_presence(activity=discord.Activity(name="/bbgen for link", type=2)
     print(f'Logged in as {bot.user.name}')
 
 @bot.command()
