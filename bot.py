@@ -10,13 +10,12 @@ import asyncio
 import sys
 
 intents = discord.Intents.default()
-intents.message_content = True  # Enable message content for on_message event
+intents.message_content = True 
 
-# Create a bot instance with intents
 bot = commands.Bot(command_prefix='/', intents=intents)
 
-bbgen_cooldown_rate = 1  # Number of uses allowed per cooldown period
-bbgen_cooldown_seconds = 60  # Cooldown period in seconds
+bbgen_cooldown_rate = 1
+bbgen_cooldown_seconds = 60
 
 def generate_random_string(length):
     characters = string.ascii_letters + string.digits
@@ -71,16 +70,13 @@ async def bbgen(ctx):
         link_prefix, token = await bot.loop.run_in_executor(None, nitro_gen)
         await ctx.author.send(f"{link_prefix}[][][][][][]{token}\n**(HVIS LINKET IK VIRKER, FJERN [][][][][][])**\n\n**IMAGINE AT VÆRE SÅ HJÆLPELØS!**")
 
-        # Send a message in the channel
         msg = await ctx.send(f"{ctx.author.mention}, Dit link er blevet sendt til dig!")
 
-        # Delete both messages after 5 seconds
         await asyncio.sleep(5)
         await ctx.message.delete()
         await msg.delete()
 
     except commands.CommandOnCooldown as e:
-        # Display time remaining in the cooldown
         cooldown_retry_after = round(e.retry_after, 2)
         await ctx.send(f'SLAP AF DIN GRIS. Vent {cooldown_retry_after} sekunder.')
     except Exception as e:
@@ -89,7 +85,7 @@ async def bbgen(ctx):
 
 @bot.command()
 async def restart(ctx):
-    if ctx.author.id == 1015419850996338810:  # Replace YOUR_USER_ID with your user ID
+    if ctx.author.id == INDSÆT DIT ID:  # BRUG DIT EGET ID
         await ctx.send("Restarting bot...")
         os.execv(sys.executable, ['python'] + sys.argv)
     else:
@@ -98,7 +94,7 @@ async def restart(ctx):
 @bot.command()
 async def clear(ctx, amount: int):
     if ctx.author.id == 1015419850996338810:
-        await ctx.channel.purge(limit=amount + 1)  # +1 to also delete the command message
+        await ctx.channel.purge(limit=amount + 1)
         await ctx.send(f"{amount} messages cleared by {ctx.author.mention}.", delete_after=5)
     else:
         await ctx.send("You do not have the required permissions to use this command.")
@@ -110,4 +106,4 @@ async def test(ctx):
 
 
 
-bot.run('MTIwMjA1NzQ5MjAwNDMzOTczMg.GHXx07.DYf-b8kZsHx10INXHHaSNJrEP8E1KkqoncaE0w')
+bot.run('DIN EGEN TOKEN')
