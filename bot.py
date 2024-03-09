@@ -93,7 +93,7 @@ async def restart(ctx):
 
 @bot.command()
 async def clear(ctx, amount: int):
-    if ctx.author.id == 1015419850996338810:
+    if ctx.author.id == INDSÆT DIT ID:  # BRUG DIT EGET ID
         await ctx.channel.purge(limit=amount + 1)
         await ctx.send(f"{amount} messages cleared by {ctx.author.mention}.", delete_after=5)
     else:
